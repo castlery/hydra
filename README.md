@@ -663,13 +663,14 @@ Developer Blog:
 * Visit the [Ory Blog](https://www.ory.sh/blog/) for guides, tutorials and articles around Ory Hydra and the Ory ecosystem.
 
 ### Patch
+Run the following command to build docker images, and then push to ECR manually.
 ```
-docker run --privileged --mount type=bind,source="$(pwd)",target=/project \
+docker run --privileged --entrypoint=goreleaser-oss --mount type=bind,source="$(pwd)",target=/project \
     -v /var/run/docker.sock:/var/run/docker.sock \
     --platform linux/amd64 \
     -e GORELEASER_KEY \
     -e GITHUB_TOKEN \
     -e COSIGN_PWD \
     -e GORELEASER_CURRENT_TAG \
-    oryd/xgoreleaser:latest build -f .goreleaser.local.yml --rm-dist --timeout 60m
+    oryd/xgoreleaser:latest release -f .goreleaser.local.yml --rm-dist --timeout 60m
 ```
